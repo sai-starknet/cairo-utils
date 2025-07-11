@@ -1,0 +1,33 @@
+[package]
+name = "sai_utils"
+version.workspace = true
+edition.workspace = true
+
+[workspace]
+members = ["packages/owners_writers"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024_07"
+cairo-version = "2.10.1"
+scarb-version = "2.10.1"
+repository = "https://github.com/sai-starknet/cairo-utils"
+
+[workspace.dependencies]
+starknet = "2.10.1"
+
+[dependencies]
+starknet.workspace = true
+sai_owners_writers = { path = "packages/owners_writers" }
+
+[lib]
+
+[workspace.tool.fmt]
+
+[tool]
+fmt.workspace = true
+
+[[target.starknet-contract]]
+allowed-libfuncs-list.name = "experimental"
+sierra = true
+casm = false
