@@ -79,12 +79,12 @@ pub mod owners_writers_component {
     pub trait OwnersWriters<TState> {
         fn is_owner(self: @TState, owner: ContractAddress) -> bool;
         fn set_owner(ref self: TState, owner: ContractAddress, is_owner: bool);
-        fn grant_contract_owner(
+        fn grant_owner(
             ref self: TState, owner: ContractAddress,
         ) {
             Self::set_owner(ref self, owner, true);
         }
-        fn revoke_contract_owner(
+        fn revoke_owner(
             ref self: TState, owner: ContractAddress,
         ) {
             Self::set_owner(ref self, owner, false);
