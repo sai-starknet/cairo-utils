@@ -1,7 +1,7 @@
 use starknet::ContractAddress;
 
 #[starknet::interface]
-pub trait IOwnerWriter<TContractState> {
+pub trait IOwnersWriters<TContractState> {
     fn owner(self: @TContractState, owner: ContractAddress) -> bool;
     fn writer(self: @TContractState, writer: ContractAddress) -> bool;
     fn grant_owner(ref self: TContractState, owner: ContractAddress);
@@ -10,13 +10,13 @@ pub trait IOwnerWriter<TContractState> {
     fn revoke_writer(ref self: TContractState, writer: ContractAddress);
 }
 
-pub use owners_writers_component::OwnersWriters;
+pub use owners_writers_component::{OwnersWriters, OwnersWritersImpl};
 
 #[starknet::component]
 pub mod owners_writers_component {
     use starknet::{ContractAddress, get_caller_address};
     use starknet::storage::{Map, StorageMapReadAccess, StorageMapWriteAccess};
-    use super::IOwnerWriter;
+    use super::IOwnersWriters;
     #[storage]
     pub struct Storage {
         owners: Map<ContractAddress, bool>,
@@ -27,10 +27,10 @@ pub mod owners_writers_component {
     #[derive(Drop, Debug, PartialEq, starknet::Event)]
     pub enum Event {}
 
-    #[embeddable_as(IOwnersWriters)]
-    impl IOwnerWriterImpl<
+    #[embeddable_as(OwnersWritersImpl)]
+    impl IOwnersWritersImpl<
         TContractState, +HasComponent<TContractState>,
-    > of IOwnerWriter<ComponentState<TContractState>> {
+    > of IOwnersWriters<ComponentState<TContractState>> {
         fn owner(self: @ComponentState<TContractState>, owner: ContractAddress) -> bool {
             self.is_owner(owner)
         }
