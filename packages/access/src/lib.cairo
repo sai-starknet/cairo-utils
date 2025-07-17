@@ -12,12 +12,12 @@ pub trait IAccess<TContractState> {
     fn revoke_contract_writer(ref self: TContractState, writer: ContractAddress);
 }
 
-pub use access_component::{Access, AccessImpl};
+pub use access_component::{AccessImpl, AccessTrait, HasComponent as HasAccessComponent};
 
 #[starknet::component]
 pub mod access_component {
-    use starknet::{ContractAddress, get_caller_address};
     use starknet::storage::{Map, StorageMapReadAccess, StorageMapWriteAccess};
+    use starknet::{ContractAddress, get_caller_address};
     use super::IAccess;
     #[storage]
     pub struct Storage {
@@ -76,7 +76,7 @@ pub mod access_component {
         }
     }
 
-    pub trait Access<TState> {
+    pub trait AccessTrait<TState> {
         fn is_owner(self: @TState, owner: ContractAddress) -> bool;
         fn set_owner(ref self: TState, owner: ContractAddress, is_owner: bool);
         fn grant_owner(
@@ -130,9 +130,9 @@ pub mod access_component {
         }
     }
 
-    impl AccessComponentImpl<
+    pub impl AccessComponentImpl<
         TContractState, +HasComponent<TContractState>,
-    > of Access<ComponentState<TContractState>> {
+    > of AccessTrait<ComponentState<TContractState>> {
         fn is_owner(self: @ComponentState<TContractState>, owner: ContractAddress) -> bool {
             self.owners.read(owner)
         }
@@ -155,9 +155,9 @@ pub mod access_component {
     }
 
 
-    impl AccessConImpl<
+    pub impl AccessContractImpl<
         TContractState, +HasComponent<TContractState>, +Drop<TContractState>,
-    > of Access<TContractState> {
+    > of AccessTrait<TContractState> {
         fn is_owner(self: @TContractState, owner: ContractAddress) -> bool {
             self.get_component().is_owner(owner)
         }

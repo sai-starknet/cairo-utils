@@ -6,10 +6,13 @@ cairo-version.workspace = true
 scarb-version.workspace = true
 repository.workspace = true
 
-[tool]
-fmt.workspace = true
-
 [dependencies]
 starknet.workspace = true
+
+[dev-dependencies]
+
+[tool]
+fmt.workspace = true
+scarb.workspace = true
 
 [lib]

@@ -6,7 +6,7 @@ scarb-version = "2.11.4"
 repository = "https://github.com/sai-starknet/cairo-utils"
 
 [workspace]
-members = ["packages/access", "packages/token"]
+members = ["packages/access", "packages/token", "packages/upgrade"]
 
 [workspace.dependencies]
 starknet = "2.11.4"
@@ -30,6 +30,7 @@ scarb-version.workspace = true
 starknet.workspace = true
 sai_access = { path = "packages/access" }
 sai_token = { path = "packages/token" }
+sai_upgrade = { path = "packages/upgrade" }
 
 [dev-dependencies]
 

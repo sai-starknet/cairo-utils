@@ -57,9 +57,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "sai_upgrade"
+version = "0.1.0"
+dependencies = [
+ "sai_access",
+]
+
+[[package]]
 name = "sai_utils"
 version = "0.1.0"
 dependencies = [
  "sai_access",
  "sai_token",
+ "sai_upgrade",
 ]
