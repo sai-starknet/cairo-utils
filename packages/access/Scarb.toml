@@ -1,5 +1,5 @@
 [package]
-name = "sai_owners_writers"
+name = "sai_access"
 version.workspace = true
 edition.workspace = true
 cairo-version.workspace = true

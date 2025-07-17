@@ -1,7 +1,7 @@
 use starknet::ContractAddress;
 
 #[starknet::interface]
-pub trait IOwnersWriters<TContractState> {
+pub trait IAccess<TContractState> {
     fn contract_owner(self: @TContractState, owner: ContractAddress) -> bool;
     fn contract_writer(self: @TContractState, writer: ContractAddress) -> bool;
     fn set_contract_owner(ref self: TContractState, owner: ContractAddress, is_owner: bool);
@@ -12,13 +12,13 @@ pub trait IOwnersWriters<TContractState> {
     fn revoke_contract_writer(ref self: TContractState, writer: ContractAddress);
 }
 
-pub use owners_writers_component::{OwnersWriters, OwnersWritersImpl};
+pub use access_component::{Access, AccessImpl};
 
 #[starknet::component]
-pub mod owners_writers_component {
+pub mod access_component {
     use starknet::{ContractAddress, get_caller_address};
     use starknet::storage::{Map, StorageMapReadAccess, StorageMapWriteAccess};
-    use super::IOwnersWriters;
+    use super::IAccess;
     #[storage]
     pub struct Storage {
         owners: Map<ContractAddress, bool>,
@@ -29,10 +29,10 @@ pub mod owners_writers_component {
     #[derive(Drop, Debug, PartialEq, starknet::Event)]
     pub enum Event {}
 
-    #[embeddable_as(OwnersWritersImpl)]
-    impl IOwnersWritersImpl<
+    #[embeddable_as(AccessImpl)]
+    impl IAccessImpl<
         TContractState, +HasComponent<TContractState>,
-    > of IOwnersWriters<ComponentState<TContractState>> {
+    > of IAccess<ComponentState<TContractState>> {
         fn contract_owner(self: @ComponentState<TContractState>, owner: ContractAddress) -> bool {
             self.is_owner(owner)
         }
@@ -76,7 +76,7 @@ pub mod owners_writers_component {
         }
     }
 
-    pub trait OwnersWriters<TState> {
+    pub trait Access<TState> {
         fn is_owner(self: @TState, owner: ContractAddress) -> bool;
         fn set_owner(ref self: TState, owner: ContractAddress, is_owner: bool);
         fn grant_owner(
@@ -130,9 +130,9 @@ pub mod owners_writers_component {
         }
     }
 
-    impl OwnersWritersComponentImpl<
+    impl AccessComponentImpl<
         TContractState, +HasComponent<TContractState>,
-    > of OwnersWriters<ComponentState<TContractState>> {
+    > of Access<ComponentState<TContractState>> {
         fn is_owner(self: @ComponentState<TContractState>, owner: ContractAddress) -> bool {
             self.owners.read(owner)
         }
@@ -155,9 +155,9 @@ pub mod owners_writers_component {
     }
 
 
-    impl OwnersWritersConImpl<
+    impl AccessConImpl<
         TContractState, +HasComponent<TContractState>, +Drop<TContractState>,
-    > of OwnersWriters<TContractState> {
+    > of Access<TContractState> {
         fn is_owner(self: @TContractState, owner: ContractAddress) -> bool {
             self.get_component().is_owner(owner)
         }

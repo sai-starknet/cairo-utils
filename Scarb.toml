@@ -1,33 +1,44 @@
+[workspace.package]
+version = "0.1.0"
+edition = "2024_07"
+cairo-version = "2.11.4"
+scarb-version = "2.11.4"
+repository = "https://github.com/sai-starknet/cairo-utils"
+
+[workspace]
+members = ["packages/access", "packages/token"]
+
+[workspace.dependencies]
+starknet = "2.11.4"
+openzeppelin_introspection = "2.0.0"
+openzeppelin_token = "2.0.0"
+
+[workspace.tool.fmt]
+sort-module-level-items = true
+
+[workspace.tool.scarb]
+allow-prebuilt-plugins = ["snforge_std"]
+
 [package]
 name = "sai_utils"
 version.workspace = true
 edition.workspace = true
-
-[workspace]
-members = ["packages/owners_writers"]
-
-[workspace.package]
-version = "0.1.0"
-edition = "2024_07"
-cairo-version = "2.10.1"
-scarb-version = "2.10.1"
-repository = "https://github.com/sai-starknet/cairo-utils"
-
-[workspace.dependencies]
-starknet = "2.10.1"
+cairo-version.workspace = true
+scarb-version.workspace = true
 
 [dependencies]
 starknet.workspace = true
-sai_owners_writers = { path = "packages/owners_writers" }
+sai_access = { path = "packages/access" }
+sai_token = { path = "packages/token" }
+
+[dev-dependencies]
 
 [lib]
 
-[workspace.tool.fmt]
-
 [tool]
 fmt.workspace = true
+scarb.workspace = true
 
 [[target.starknet-contract]]
-allowed-libfuncs-list.name = "experimental"
 sierra = true
 casm = false
