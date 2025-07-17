@@ -49,6 +49,14 @@ name = "sai_access"
 version = "0.1.0"
 
 [[package]]
+name = "sai_core_utils"
+version = "0.1.0"
+
+[[package]]
+name = "sai_return"
+version = "0.1.0"
+
+[[package]]
 name = "sai_token"
 version = "0.1.0"
 dependencies = [
@@ -68,6 +76,8 @@ name = "sai_utils"
 version = "0.1.0"
 dependencies = [
  "sai_access",
+ "sai_core_utils",
+ "sai_return",
  "sai_token",
  "sai_upgrade",
 ]
