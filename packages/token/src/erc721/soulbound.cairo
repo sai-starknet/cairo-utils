@@ -9,6 +9,7 @@ use starknet::storage::StorageMapReadAccess;
 
 mod Error {
     pub fn not_transferable<T>() -> T {
+        #[allow(panic)]
         panic!("Token is soulbound and not transferable")
     }
 }
