@@ -1,8 +1,8 @@
 [workspace.package]
 version = "0.1.0"
 edition = "2024_07"
-cairo-version = "2.11.4"
-scarb-version = "2.11.4"
+cairo-version = "2.10.1"
+scarb-version = "2.10.1"
 repository = "https://github.com/sai-starknet/cairo-utils"
 
 [workspace]
@@ -15,9 +15,9 @@ members = [
 ]
 
 [workspace.dependencies]
-starknet = "2.11.4"
-openzeppelin_introspection = "2.0.0"
-openzeppelin_token = "2.0.0"
+starknet = "2.10.1"
+openzeppelin_introspection = "1.0.0"
+openzeppelin_token = "1.0.0"
 
 [workspace.tool.fmt]
 sort-module-level-items = true
