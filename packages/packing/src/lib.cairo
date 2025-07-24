@@ -1,7 +1,7 @@
 pub trait IntPacking<T> {
     type Packed;
-    fn pack(value: T) -> Self::Packed;
-    fn unpack(value: Self::Packed) -> T;
+    fn pack(self: T) -> Self::Packed;
+    fn unpack(self: Self::Packed) -> T;
 }
 
 const I8_NEG_BIT: u8 = 0x80;
@@ -34,23 +34,23 @@ mod implementation {
         +Zero<T>,
     > of super::IntPacking<T> {
         type Packed = Packed;
-        fn pack(value: T) -> Self::Packed {
-            if value == Bounded::MIN {
+        fn pack(self: T) -> Self::Packed {
+            if self == Bounded::MIN {
                 return Bounded::MAX;
             }
-            match value < Zero::zero() {
-                true => NEG_BIT + (-value).try_into().unwrap(),
-                false => value.try_into().unwrap(),
+            match self < Zero::zero() {
+                true => NEG_BIT + (-self).try_into().unwrap(),
+                false => self.try_into().unwrap(),
             }
         }
 
-        fn unpack(value: Self::Packed) -> T {
-            if value == Bounded::MAX {
+        fn unpack(self: Self::Packed) -> T {
+            if self == Bounded::MAX {
                 return Bounded::MIN;
             }
-            match value < NEG_BIT {
-                true => value.try_into().unwrap(),
-                false => -((value - NEG_BIT).try_into().unwrap()),
+            match self < NEG_BIT {
+                true => self.try_into().unwrap(),
+                false => -((self - NEG_BIT).try_into().unwrap()),
             }
         }
     }
