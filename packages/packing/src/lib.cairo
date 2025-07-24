@@ -1,7 +1,7 @@
 pub trait IntPacking<T> {
     type Packed;
     fn pack(self: T) -> Self::Packed;
-    fn unpack(self: Self::Packed) -> T;
+    fn unpack(value: Self::Packed) -> T;
 }
 
 const I8_NEG_BIT: u8 = 0x80;
@@ -14,27 +14,27 @@ mod implementation {
     use core::num::traits::{Bounded, Zero};
     pub impl IntPackingImpl<
         T,
-        Packed,
-        const NEG_BIT: Packed,
-        +Add<Packed>,
-        +Bounded<Packed>,
+        P,
+        const NEG_BIT: P,
+        +Add<P>,
+        +Bounded<P>,
         +Bounded<T>,
-        +Copy<Packed>,
+        +Copy<P>,
         +Copy<T>,
-        +Drop<Packed>,
+        +Drop<P>,
         +Drop<T>,
         +Neg<T>,
-        +PartialEq<Packed>,
+        +PartialEq<P>,
         +PartialEq<T>,
-        +PartialOrd<Packed>,
+        +PartialOrd<P>,
         +PartialOrd<T>,
-        +Sub<Packed>,
-        +TryInto<Packed, T>,
-        +TryInto<T, Packed>,
+        +Sub<P>,
+        +TryInto<P, T>,
+        +TryInto<T, P>,
         +Zero<T>,
     > of super::IntPacking<T> {
-        type Packed = Packed;
-        fn pack(self: T) -> Self::Packed {
+        type Packed = P;
+        fn pack(self: T) -> P {
             if self == Bounded::MIN {
                 return Bounded::MAX;
             }
@@ -44,24 +44,24 @@ mod implementation {
             }
         }
 
-        fn unpack(self: Self::Packed) -> T {
-            if self == Bounded::MAX {
+        fn unpack(value: P) -> T {
+            if value == Bounded::MAX {
                 return Bounded::MIN;
             }
-            match self < NEG_BIT {
-                true => self.try_into().unwrap(),
-                false => -((self - NEG_BIT).try_into().unwrap()),
+            match value < NEG_BIT {
+                true => value.try_into().unwrap(),
+                false => -((value - NEG_BIT).try_into().unwrap()),
             }
         }
     }
 }
 
 
-impl I8IntPacking = implementation::IntPackingImpl<i8, u8, I8_NEG_BIT>;
-impl I16IntPacking = implementation::IntPackingImpl<i16, u16, I16_NEG_BIT>;
-impl I32IntPacking = implementation::IntPackingImpl<i32, u32, I32_NEG_BIT>;
-impl I64IntPacking = implementation::IntPackingImpl<i64, u64, I64_NEG_BIT>;
-impl I128IntPacking = implementation::IntPackingImpl<i128, u128, I128_NEG_BIT>;
+pub impl I8IntPacking = implementation::IntPackingImpl<i8, u8, I8_NEG_BIT>;
+pub impl I16IntPacking = implementation::IntPackingImpl<i16, u16, I16_NEG_BIT>;
+pub impl I32IntPacking = implementation::IntPackingImpl<i32, u32, I32_NEG_BIT>;
+pub impl I64IntPacking = implementation::IntPackingImpl<i64, u64, I64_NEG_BIT>;
+pub impl I128IntPacking = implementation::IntPackingImpl<i128, u128, I128_NEG_BIT>;
 
 
 #[cfg(test)]
@@ -71,7 +71,7 @@ mod tests {
     use super::IntPacking;
 
     fn test_pack_unpack<T, +IntPacking<T>, +PartialEq<T>, +Debug<T>, +Drop<T>, +Copy<T>>(value: T) {
-        let unpacked = IntPacking::unpack(IntPacking::pack(value));
+        let unpacked = IntPacking::unpack(value.pack());
         assert_eq!(value, unpacked);
     }
 
