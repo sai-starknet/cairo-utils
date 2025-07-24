@@ -3,7 +3,7 @@ use core::num::traits::Pow;
 pub trait IntPacking<T> {
     type Packed;
     fn pack(self: T) -> Self::Packed;
-    fn unpack(self: Self::Packed) -> T;
+    fn unpack(value: Self::Packed) -> T;
 }
 
 const I8_NEG_BIT: u8 = 0x80;
@@ -36,7 +36,7 @@ mod implementation {
         +Zero<T>,
     > of super::IntPacking<T> {
         type Packed = P;
-        fn pack(self: T) -> Self::Packed {
+        fn pack(self: T) -> P {
             if self == Bounded::MIN {
                 return Bounded::MAX;
             }
@@ -46,13 +46,13 @@ mod implementation {
             }
         }
 
-        fn unpack(self: Self::Packed) -> T {
-            if self == Bounded::MAX {
+        fn unpack(value: P) -> T {
+            if value == Bounded::MAX {
                 return Bounded::MIN;
             }
-            match self < NEG_BIT {
-                true => self.try_into().unwrap(),
-                false => -((self - NEG_BIT).try_into().unwrap()),
+            match value < NEG_BIT {
+                true => value.try_into().unwrap(),
+                false => -((value - NEG_BIT).try_into().unwrap()),
             }
         }
     }
@@ -73,7 +73,7 @@ mod tests {
     use super::IntPacking;
 
     fn test_pack_unpack<T, +IntPacking<T>, +PartialEq<T>, +Debug<T>, +Drop<T>, +Copy<T>>(value: T) {
-        let unpacked = IntPacking::unpack(IntPacking::pack(value));
+        let unpacked = IntPacking::unpack(value.pack());
         assert_eq!(value, unpacked);
     }
 
