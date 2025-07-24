@@ -10,7 +10,7 @@ repository.workspace = true
 starknet.workspace = true
 
 [dev-dependencies]
-cairo_test = "2.11.4"
+cairo_test = "2.10.1"
 
 [tool]
 fmt.workspace = true

@@ -1,5 +1,3 @@
-use core::num::traits::Pow;
-
 pub trait IntPacking<T> {
     type Packed;
     fn pack(value: T) -> Self::Packed;
@@ -8,9 +6,9 @@ pub trait IntPacking<T> {
 
 const I8_NEG_BIT: u8 = 0x80;
 const I16_NEG_BIT: u16 = 0x8000;
-const I32_NEG_BIT: u32 = 2_u32.pow(31);
-const I64_NEG_BIT: u64 = 2_u64.pow(63);
-const I128_NEG_BIT: u128 = 2_u128.pow(127);
+const I32_NEG_BIT: u32 = 0x8000_0000;
+const I64_NEG_BIT: u64 = 0x8000_0000_0000_0000;
+const I128_NEG_BIT: u128 = 0x8000_0000_0000_0000_0000_0000_0000_0000;
 
 mod implementation {
     use core::num::traits::{Bounded, Zero};
