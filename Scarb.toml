@@ -12,12 +12,16 @@ members = [
     "packages/upgrade",
     "packages/core",
     "packages/emit_return",
+    "packages/packing",
 ]
 
 [workspace.dependencies]
 starknet = "2.10.1"
 openzeppelin_introspection = "1.0.0"
 openzeppelin_token = "1.0.0"
+
+[workspace.dev-dependencies]
+cairo_test = "2.11.4"
 
 [workspace.tool.fmt]
 sort-module-level-items = true
@@ -39,8 +43,10 @@ sai_token = { path = "packages/token" }
 sai_upgrade = { path = "packages/upgrade" }
 sai_core_utils = { path = "packages/core" }
 sai_return = { path = "packages/emit_return" }
+sai_packing = { path = "packages/packing" }
 
 [dev-dependencies]
+cairo_test = "2.11.4"
 
 [lib]
 
