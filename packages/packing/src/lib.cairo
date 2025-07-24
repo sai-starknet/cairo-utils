@@ -68,9 +68,8 @@ impl I128IntPacking = implementation::IntPackingImpl<i128, u128, I128_NEG_BIT>;
 mod tests {
     use core::fmt::Debug;
     use core::num::traits::{Bounded, One, Zero};
-    use super::{
-        I128IntPacking, I16IntPacking, I32IntPacking, I64IntPacking, I8IntPacking, IntPacking,
-    };
+    use super::IntPacking;
+
     fn test_pack_unpack<T, +IntPacking<T>, +PartialEq<T>, +Debug<T>, +Drop<T>, +Copy<T>>(value: T) {
         let unpacked = IntPacking::unpack(IntPacking::pack(value));
         assert_eq!(value, unpacked);
