@@ -1,0 +1,19 @@
+[package]
+name = "sai_address"
+version.workspace = true
+edition.workspace = true
+cairo-version.workspace = true
+scarb-version.workspace = true
+repository.workspace = true
+
+[dependencies]
+starknet.workspace = true
+sai_core_utils = { path = "../core" }
+
+[dev-dependencies]
+
+[tool]
+fmt.workspace = true
+scarb.workspace = true
+
+[lib]

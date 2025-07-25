@@ -50,6 +50,13 @@ name = "sai_access"
 version = "0.1.0"
 
 [[package]]
+name = "sai_address"
+version = "0.1.0"
+dependencies = [
+ "sai_core_utils",
+]
+
+[[package]]
 name = "sai_core_utils"
 version = "0.1.0"
 

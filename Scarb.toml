@@ -13,6 +13,7 @@ members = [
     "packages/core",
     "packages/emit_return",
     "packages/packing",
+    "packages/address",
 ]
 
 [workspace.dependencies]
