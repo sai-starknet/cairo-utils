@@ -9,6 +9,7 @@ repository.workspace = true
 [dependencies]
 
 [dev-dependencies]
+cairo_test = "2.11.4"
 
 [tool]
 fmt.workspace = true

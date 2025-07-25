@@ -11,6 +11,7 @@ starknet.workspace = true
 sai_core_utils = { path = "../core" }
 
 [dev-dependencies]
+cairo_test = "2.11.4"
 
 [tool]
 fmt.workspace = true

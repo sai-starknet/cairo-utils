@@ -45,6 +45,7 @@ sai_upgrade = { path = "packages/upgrade" }
 sai_core_utils = { path = "packages/core" }
 sai_return = { path = "packages/emit_return" }
 sai_packing = { path = "packages/packing" }
+sai_address = { path = "packages/address" }
 
 [dev-dependencies]
 cairo_test = "2.10.1"

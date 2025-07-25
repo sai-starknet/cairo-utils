@@ -88,6 +88,7 @@ name = "sai_utils"
 version = "0.1.0"
 dependencies = [
  "sai_access",
+ "sai_address",
  "sai_core_utils",
  "sai_packing",
  "sai_return",
