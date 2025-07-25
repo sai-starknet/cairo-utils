@@ -14,3 +14,9 @@ pub use saturating::SaturatingInto;
 
 pub mod serde;
 pub use serde::SerdeAll;
+
+#[cfg(test)]
+mod test {
+    mod bounded;
+    mod saturating;
+}
