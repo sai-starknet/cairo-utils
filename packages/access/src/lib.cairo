@@ -7,9 +7,13 @@ pub trait IAccess<TContractState> {
     fn set_contract_owner(ref self: TContractState, owner: ContractAddress, is_owner: bool);
     fn set_contract_writer(ref self: TContractState, writer: ContractAddress, is_writer: bool);
     fn grant_contract_owner(ref self: TContractState, owner: ContractAddress);
+    fn grant_contract_owners(ref self: TContractState, owners: Array<ContractAddress>);
     fn revoke_contract_owner(ref self: TContractState, owner: ContractAddress);
+    fn revoke_contract_owners(ref self: TContractState, owners: Array<ContractAddress>);
     fn grant_contract_writer(ref self: TContractState, writer: ContractAddress);
+    fn grant_contract_writers(ref self: TContractState, writers: Array<ContractAddress>);
     fn revoke_contract_writer(ref self: TContractState, writer: ContractAddress);
+    fn revoke_contract_writers(ref self: TContractState, writers: Array<ContractAddress>);
 }
 
 pub use access_component::{AccessImpl, AccessTrait, HasComponent as HasAccessComponent};
@@ -73,6 +77,42 @@ pub mod access_component {
             ref self: ComponentState<TContractState>, writer: ContractAddress,
         ) {
             self.set_contract_writer(writer, false);
+        }
+
+        fn grant_contract_owners(
+            ref self: ComponentState<TContractState>, owners: Array<ContractAddress>,
+        ) {
+            self.assert_caller_is_owner();
+            for owner in owners {
+                self.set_owner(owner, true);
+            }
+        }
+
+        fn revoke_contract_owners(
+            ref self: ComponentState<TContractState>, owners: Array<ContractAddress>,
+        ) {
+            self.assert_caller_is_owner();
+            for owner in owners {
+                self.set_owner(owner, false);
+            }
+        }
+
+        fn grant_contract_writers(
+            ref self: ComponentState<TContractState>, writers: Array<ContractAddress>,
+        ) {
+            self.assert_caller_is_owner();
+            for writer in writers {
+                self.set_writer(writer, true);
+            }
+        }
+
+        fn revoke_contract_writers(
+            ref self: ComponentState<TContractState>, writers: Array<ContractAddress>,
+        ) {
+            self.assert_caller_is_owner();
+            for writer in writers {
+                self.set_writer(writer, false);
+            }
         }
     }
 
