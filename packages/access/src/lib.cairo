@@ -55,7 +55,7 @@ pub mod access_component {
         fn set_contract_writer(
             ref self: ComponentState<TContractState>, writer: ContractAddress, is_writer: bool,
         ) {
-            self.assert_caller_is_writer();
+            self.assert_caller_is_owner();
             self.set_writer(writer, is_writer);
         }
 
