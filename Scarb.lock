@@ -60,6 +60,10 @@ name = "sai_core_utils"
 version = "0.1.0"
 
 [[package]]
+name = "sai_owner"
+version = "0.1.0"
+
+[[package]]
 name = "sai_packing"
 version = "0.1.0"
 
@@ -89,6 +93,7 @@ dependencies = [
  "sai_access",
  "sai_address",
  "sai_core_utils",
+ "sai_owner",
  "sai_packing",
  "sai_return",
  "sai_token",
