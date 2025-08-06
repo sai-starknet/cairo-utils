@@ -1,7 +1,7 @@
 use starknet::ContractAddress;
 
 #[starknet::interface]
-pub trait IOwner<TContractState> {
+pub trait IOwnable<TContractState> {
     fn contract_owner(self: @TContractState, owner: ContractAddress) -> bool;
     fn set_contract_owner(ref self: TContractState, owner: ContractAddress, is_owner: bool);
     fn grant_contract_owner(ref self: TContractState, owner: ContractAddress);
@@ -10,13 +10,13 @@ pub trait IOwner<TContractState> {
     fn revoke_contract_owners(ref self: TContractState, owners: Array<ContractAddress>);
 }
 
-pub use owner_component::{HasComponent as HasOwnerComponent, OwnerImpl, OwnerTrait};
+pub use ownable_component::{HasComponent as HasOwnableComponent, OwnableImpl, OwnableTrait};
 
 #[starknet::component]
-pub mod owner_component {
+pub mod ownable_component {
     use starknet::storage::{Map, StorageMapReadAccess, StorageMapWriteAccess};
     use starknet::{ContractAddress, get_caller_address};
-    use super::IOwner;
+    use super::IOwnable;
     #[storage]
     pub struct Storage {
         owners: Map<ContractAddress, bool>,
@@ -43,10 +43,10 @@ pub mod owner_component {
         RevokeContractOwner: RevokeContractOwner,
     }
 
-    #[embeddable_as(OwnerImpl)]
-    impl IOwnerImpl<
+    #[embeddable_as(OwnableImpl)]
+    impl IOwnableImpl<
         TContractState, +HasComponent<TContractState>,
-    > of IOwner<ComponentState<TContractState>> {
+    > of IOwnable<ComponentState<TContractState>> {
         fn contract_owner(self: @ComponentState<TContractState>, owner: ContractAddress) -> bool {
             self.is_owner(owner)
         }
@@ -87,7 +87,7 @@ pub mod owner_component {
         }
     }
 
-    pub trait OwnerTrait<TState> {
+    pub trait OwnableTrait<TState> {
         fn is_owner(self: @TState, owner: ContractAddress) -> bool;
         fn set_owner(ref self: TState, owner: ContractAddress, is_owner: bool);
         fn grant_owner(
@@ -115,9 +115,9 @@ pub mod owner_component {
         }
     }
 
-    pub impl OwnerComponentImpl<
+    pub impl OwnableComponentImpl<
         TContractState, +HasComponent<TContractState>,
-    > of OwnerTrait<ComponentState<TContractState>> {
+    > of OwnableTrait<ComponentState<TContractState>> {
         fn is_owner(self: @ComponentState<TContractState>, owner: ContractAddress) -> bool {
             self.owners.read(owner)
         }
@@ -134,9 +134,9 @@ pub mod owner_component {
     }
 
 
-    pub impl OwnerContractImpl<
+    pub impl OwnableContractImpl<
         TContractState, +HasComponent<TContractState>, +Drop<TContractState>,
-    > of OwnerTrait<TContractState> {
+    > of OwnableTrait<TContractState> {
         fn is_owner(self: @TContractState, owner: ContractAddress) -> bool {
             self.get_component().is_owner(owner)
         }

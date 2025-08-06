@@ -1,5 +1,5 @@
 [package]
-name = "sai_owner"
+name = "sai_ownable"
 version.workspace = true
 edition.workspace = true
 cairo-version.workspace = true
