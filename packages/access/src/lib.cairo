@@ -29,9 +29,41 @@ pub mod access_component {
         writers: Map<ContractAddress, bool>,
     }
 
+
+    #[derive(Drop, Serde, starknet::Event)]
+    struct GrantContractOwner {
+        #[key]
+        user: ContractAddress,
+    }
+
+    #[derive(Drop, Serde, starknet::Event)]
+    struct RevokeContractOwner {
+        #[key]
+        user: ContractAddress,
+    }
+
+
+    #[derive(Drop, Serde, starknet::Event)]
+    struct GrantContractWriter {
+        #[key]
+        user: ContractAddress,
+    }
+
+    #[derive(Drop, Serde, starknet::Event)]
+    struct RevokeContractWriter {
+        #[key]
+        user: ContractAddress,
+    }
+
+
     #[event]
-    #[derive(Drop, Debug, PartialEq, starknet::Event)]
-    pub enum Event {}
+    #[derive(Drop, Serde, starknet::Event)]
+    pub enum Event {
+        GrantContractOwner: GrantContractOwner,
+        RevokeContractOwner: RevokeContractOwner,
+        GrantContractWriter: GrantContractWriter,
+        RevokeContractWriter: RevokeContractWriter,
+    }
 
     #[embeddable_as(AccessImpl)]
     impl IAccessImpl<
@@ -185,12 +217,20 @@ pub mod access_component {
             ref self: ComponentState<TContractState>, owner: ContractAddress, is_owner: bool,
         ) {
             self.owners.write(owner, is_owner);
+            match is_owner {
+                true => self.emit(GrantContractOwner { user: owner }),
+                false => self.emit(RevokeContractOwner { user: owner }),
+            };
         }
 
         fn set_writer(
             ref self: ComponentState<TContractState>, writer: ContractAddress, is_writer: bool,
         ) {
             self.writers.write(writer, is_writer);
+            match is_writer {
+                true => self.emit(GrantContractWriter { user: writer }),
+                false => self.emit(RevokeContractWriter { user: writer }),
+            };
         }
     }
 
