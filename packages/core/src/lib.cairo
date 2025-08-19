@@ -7,7 +7,7 @@ pub use bounded::BoundedCast;
 pub mod pedersen;
 
 pub mod poseidon;
-pub use poseidon::{PoseidonTrait, poseidon_hash_serde, serde as poseidon_serde};
+pub use poseidon::{PoseidonTrait, poseidon_hash_serde, poseidon_hash_two, serde as poseidon_serde};
 
 pub mod saturating;
 pub use saturating::SaturatingInto;
