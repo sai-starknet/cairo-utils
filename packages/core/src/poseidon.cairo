@@ -17,6 +17,11 @@ pub mod serde {
     }
 }
 
+pub fn poseidon_hash_single<T, +Into<T, felt252>, +Drop<T>>(value: T) -> felt252 {
+    let (r, _, _) = hades_permutation(value.into(), 1, 0);
+    r
+}
+
 pub fn poseidon_hash_two<T, S, +Into<T, felt252>, +Into<S, felt252>, +Drop<S>>(
     value_1: T, value_2: S,
 ) -> felt252 {
@@ -31,6 +36,16 @@ mod tests {
     use core::hash::HashStateTrait;
     use core::poseidon::PoseidonTrait;
     use super::*;
+
+    #[test]
+    fn test_poseidon_hash_single() {
+        let value = 'salt';
+        let result = poseidon_hash_single(value);
+        let expected_result = poseidon_hash_span([value].span());
+        let other_expected_result = PoseidonTrait::new().update(value).finalize();
+        assert_eq!(result, expected_result);
+        assert_eq!(result, other_expected_result);
+    }
 
     #[test]
     fn test_poseidon_hash_two() {
