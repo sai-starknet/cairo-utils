@@ -30,6 +30,16 @@ pub fn poseidon_hash_two<T, S, +Into<T, felt252>, +Into<S, felt252>, +Drop<S>>(
     r
 }
 
+pub fn poseidon_hash_three<
+    T, S, U, +Into<T, felt252>, +Into<S, felt252>, +Into<U, felt252>, +Drop<S>, +Drop<U>,
+>(
+    value_1: T, value_2: S, value_3: U,
+) -> felt252 {
+    let (s0, s1, s2) = hades_permutation(value_1.into(), value_2.into(), 0);
+    let (r, _, _) = hades_permutation(s0 + value_3.into(), s1 + 1, s2);
+    r
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -54,6 +64,22 @@ mod tests {
         let result = poseidon_hash_two(value_1, value_2);
         let expected_result = poseidon_hash_span([value_1, value_2].span());
         let other_expected_result = PoseidonTrait::new().update(value_1).update(value_2).finalize();
+        assert_eq!(result, expected_result);
+        assert_eq!(result, other_expected_result);
+    }
+
+    #[test]
+    fn test_poseidon_hash_three() {
+        let value_1 = 'salt';
+        let value_2 = 'beef';
+        let value_3 = 'hash';
+        let result = poseidon_hash_three(value_1, value_2, value_3);
+        let expected_result = poseidon_hash_span([value_1, value_2, value_3].span());
+        let other_expected_result = PoseidonTrait::new()
+            .update(value_1)
+            .update(value_2)
+            .update(value_3)
+            .finalize();
         assert_eq!(result, expected_result);
         assert_eq!(result, other_expected_result);
     }
