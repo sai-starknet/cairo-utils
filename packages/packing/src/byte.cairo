@@ -1,127 +1,202 @@
-use core::num::traits::Pow;
+use core::num::traits::{Bounded, Pow};
 use crate::int::{
     I128IntPacking, I16IntPacking, I32IntPacking, I64IntPacking, I8IntPacking, IntPacking,
 };
 
-pub const SHIFT_1_FELT252: felt252 = 2_felt252.pow(8);
-pub const SHIFT_2_FELT252: felt252 = 2_felt252.pow(16);
-pub const SHIFT_3_FELT252: felt252 = 2_felt252.pow(24);
-pub const SHIFT_4_FELT252: felt252 = 2_felt252.pow(32);
-pub const SHIFT_5_FELT252: felt252 = 2_felt252.pow(40);
-pub const SHIFT_6_FELT252: felt252 = 2_felt252.pow(48);
-pub const SHIFT_7_FELT252: felt252 = 2_felt252.pow(56);
-pub const SHIFT_8_FELT252: felt252 = 2_felt252.pow(64);
-pub const SHIFT_9_FELT252: felt252 = 2_felt252.pow(72);
-pub const SHIFT_10_FELT252: felt252 = 2_felt252.pow(80);
-pub const SHIFT_11_FELT252: felt252 = 2_felt252.pow(88);
-pub const SHIFT_12_FELT252: felt252 = 2_felt252.pow(96);
-pub const SHIFT_13_FELT252: felt252 = 2_felt252.pow(104);
-pub const SHIFT_14_FELT252: felt252 = 2_felt252.pow(112);
-pub const SHIFT_15_FELT252: felt252 = 2_felt252.pow(120);
-pub const SHIFT_16_FELT252: felt252 = 2_felt252.pow(128);
-pub const SHIFT_17_FELT252: felt252 = 2_felt252.pow(136);
-pub const SHIFT_18_FELT252: felt252 = 2_felt252.pow(144);
-pub const SHIFT_19_FELT252: felt252 = 2_felt252.pow(152);
-pub const SHIFT_20_FELT252: felt252 = 2_felt252.pow(160);
-pub const SHIFT_21_FELT252: felt252 = 2_felt252.pow(168);
-pub const SHIFT_22_FELT252: felt252 = 2_felt252.pow(176);
-pub const SHIFT_23_FELT252: felt252 = 2_felt252.pow(184);
-pub const SHIFT_24_FELT252: felt252 = 2_felt252.pow(192);
-pub const SHIFT_25_FELT252: felt252 = 2_felt252.pow(200);
-pub const SHIFT_26_FELT252: felt252 = 2_felt252.pow(208);
-pub const SHIFT_27_FELT252: felt252 = 2_felt252.pow(216);
-pub const SHIFT_28_FELT252: felt252 = 2_felt252.pow(224);
-pub const SHIFT_29_FELT252: felt252 = 2_felt252.pow(232);
-pub const SHIFT_30_FELT252: felt252 = 2_felt252.pow(240);
+pub const SHIFT_1B_FELT252: felt252 = 2_felt252.pow(8);
+pub const SHIFT_2B_FELT252: felt252 = 2_felt252.pow(16);
+pub const SHIFT_3B_FELT252: felt252 = 2_felt252.pow(24);
+pub const SHIFT_4B_FELT252: felt252 = 2_felt252.pow(32);
+pub const SHIFT_5B_FELT252: felt252 = 2_felt252.pow(40);
+pub const SHIFT_6B_FELT252: felt252 = 2_felt252.pow(48);
+pub const SHIFT_7B_FELT252: felt252 = 2_felt252.pow(56);
+pub const SHIFT_8B_FELT252: felt252 = 2_felt252.pow(64);
+pub const SHIFT_9B_FELT252: felt252 = 2_felt252.pow(72);
+pub const SHIFT_10B_FELT252: felt252 = 2_felt252.pow(80);
+pub const SHIFT_11B_FELT252: felt252 = 2_felt252.pow(88);
+pub const SHIFT_12B_FELT252: felt252 = 2_felt252.pow(96);
+pub const SHIFT_13B_FELT252: felt252 = 2_felt252.pow(104);
+pub const SHIFT_14B_FELT252: felt252 = 2_felt252.pow(112);
+pub const SHIFT_15B_FELT252: felt252 = 2_felt252.pow(120);
+pub const SHIFT_16B_FELT252: felt252 = 2_felt252.pow(128);
+pub const SHIFT_17B_FELT252: felt252 = 2_felt252.pow(136);
+pub const SHIFT_18B_FELT252: felt252 = 2_felt252.pow(144);
+pub const SHIFT_19B_FELT252: felt252 = 2_felt252.pow(152);
+pub const SHIFT_20B_FELT252: felt252 = 2_felt252.pow(160);
+pub const SHIFT_21B_FELT252: felt252 = 2_felt252.pow(168);
+pub const SHIFT_22B_FELT252: felt252 = 2_felt252.pow(176);
+pub const SHIFT_23B_FELT252: felt252 = 2_felt252.pow(184);
+pub const SHIFT_24B_FELT252: felt252 = 2_felt252.pow(192);
+pub const SHIFT_25B_FELT252: felt252 = 2_felt252.pow(200);
+pub const SHIFT_26B_FELT252: felt252 = 2_felt252.pow(208);
+pub const SHIFT_27B_FELT252: felt252 = 2_felt252.pow(216);
+pub const SHIFT_28B_FELT252: felt252 = 2_felt252.pow(224);
+pub const SHIFT_29B_FELT252: felt252 = 2_felt252.pow(232);
+pub const SHIFT_30B_FELT252: felt252 = 2_felt252.pow(240);
+pub const SHIFT_31B_FELT252: felt252 = 2_felt252.pow(248);
 
 
-pub const SHIFT_1_U16: u16 = 2_u16.pow(8);
+pub const SHIFT_1B_U16: u16 = 2_u16.pow(8);
 
-pub const SHIFT_1_U32: u32 = 2_u32.pow(8);
-pub const SHIFT_2_U32: u32 = 2_u32.pow(16);
-pub const SHIFT_3_U32: u32 = 2_u32.pow(24);
+pub const SHIFT_1B_U32: u32 = 2_u32.pow(8);
+pub const SHIFT_2B_U32: u32 = 2_u32.pow(16);
+pub const SHIFT_3B_U32: u32 = 2_u32.pow(24);
 
-pub const SHIFT_1_U64: u64 = 2_u64.pow(8);
-pub const SHIFT_2_U64: u64 = 2_u64.pow(16);
-pub const SHIFT_3_U64: u64 = 2_u64.pow(24);
-pub const SHIFT_4_U64: u64 = 2_u64.pow(32);
-pub const SHIFT_5_U64: u64 = 2_u64.pow(40);
-pub const SHIFT_6_U64: u64 = 2_u64.pow(48);
-pub const SHIFT_7_U64: u64 = 2_u64.pow(56);
+pub const SHIFT_1B_U64: u64 = 2_u64.pow(8);
+pub const SHIFT_2B_U64: u64 = 2_u64.pow(16);
+pub const SHIFT_3B_U64: u64 = 2_u64.pow(24);
+pub const SHIFT_4B_U64: u64 = 2_u64.pow(32);
+pub const SHIFT_5B_U64: u64 = 2_u64.pow(40);
+pub const SHIFT_6B_U64: u64 = 2_u64.pow(48);
+pub const SHIFT_7B_U64: u64 = 2_u64.pow(56);
 
-pub const SHIFT_1_U128: u128 = 2_u128.pow(8);
-pub const SHIFT_2_U128: u128 = 2_u128.pow(16);
-pub const SHIFT_3_U128: u128 = 2_u128.pow(24);
-pub const SHIFT_4_U128: u128 = 2_u128.pow(32);
-pub const SHIFT_5_U128: u128 = 2_u128.pow(40);
-pub const SHIFT_6_U128: u128 = 2_u128.pow(48);
-pub const SHIFT_7_U128: u128 = 2_u128.pow(56);
-pub const SHIFT_8_U128: u128 = 2_u128.pow(64);
-pub const SHIFT_9_U128: u128 = 2_u128.pow(72);
-pub const SHIFT_10_U128: u128 = 2_u128.pow(80);
-pub const SHIFT_11_U128: u128 = 2_u128.pow(88);
-pub const SHIFT_12_U128: u128 = 2_u128.pow(96);
-pub const SHIFT_13_U128: u128 = 2_u128.pow(104);
-pub const SHIFT_14_U128: u128 = 2_u128.pow(112);
-pub const SHIFT_15_U128: u128 = 2_u128.pow(120);
+pub const SHIFT_1B_U128: u128 = 2_u128.pow(8);
+pub const SHIFT_2B_U128: u128 = 2_u128.pow(16);
+pub const SHIFT_3B_U128: u128 = 2_u128.pow(24);
+pub const SHIFT_4B_U128: u128 = 2_u128.pow(32);
+pub const SHIFT_5B_U128: u128 = 2_u128.pow(40);
+pub const SHIFT_6B_U128: u128 = 2_u128.pow(48);
+pub const SHIFT_7B_U128: u128 = 2_u128.pow(56);
+pub const SHIFT_8B_U128: u128 = 2_u128.pow(64);
+pub const SHIFT_9B_U128: u128 = 2_u128.pow(72);
+pub const SHIFT_10B_U128: u128 = 2_u128.pow(80);
+pub const SHIFT_11B_U128: u128 = 2_u128.pow(88);
+pub const SHIFT_12B_U128: u128 = 2_u128.pow(96);
+pub const SHIFT_13B_U128: u128 = 2_u128.pow(104);
+pub const SHIFT_14B_U128: u128 = 2_u128.pow(112);
+pub const SHIFT_15B_U128: u128 = 2_u128.pow(120);
 
-pub const SHIFT_1_U256: u256 = 2_u256.pow(8);
-pub const SHIFT_2_U256: u256 = 2_u256.pow(16);
-pub const SHIFT_3_U256: u256 = 2_u256.pow(24);
-pub const SHIFT_4_U256: u256 = 2_u256.pow(32);
-pub const SHIFT_5_U256: u256 = 2_u256.pow(40);
-pub const SHIFT_6_U256: u256 = 2_u256.pow(48);
-pub const SHIFT_7_U256: u256 = 2_u256.pow(56);
-pub const SHIFT_8_U256: u256 = 2_u256.pow(64);
-pub const SHIFT_9_U256: u256 = 2_u256.pow(72);
-pub const SHIFT_10_U256: u256 = 2_u256.pow(80);
-pub const SHIFT_11_U256: u256 = 2_u256.pow(88);
-pub const SHIFT_12_U256: u256 = 2_u256.pow(96);
-pub const SHIFT_13_U256: u256 = 2_u256.pow(104);
-pub const SHIFT_14_U256: u256 = 2_u256.pow(112);
-pub const SHIFT_15_U256: u256 = 2_u256.pow(120);
-pub const SHIFT_16_U256: u256 = 2_u256.pow(128);
-pub const SHIFT_17_U256: u256 = 2_u256.pow(136);
-pub const SHIFT_18_U256: u256 = 2_u256.pow(144);
-pub const SHIFT_19_U256: u256 = 2_u256.pow(152);
-pub const SHIFT_20_U256: u256 = 2_u256.pow(160);
-pub const SHIFT_21_U256: u256 = 2_u256.pow(168);
-pub const SHIFT_22_U256: u256 = 2_u256.pow(176);
-pub const SHIFT_23_U256: u256 = 2_u256.pow(184);
-pub const SHIFT_24_U256: u256 = 2_u256.pow(192);
-pub const SHIFT_25_U256: u256 = 2_u256.pow(200);
-pub const SHIFT_26_U256: u256 = 2_u256.pow(208);
-pub const SHIFT_27_U256: u256 = 2_u256.pow(216);
-pub const SHIFT_28_U256: u256 = 2_u256.pow(224);
-pub const SHIFT_29_U256: u256 = 2_u256.pow(232);
-pub const SHIFT_30_U256: u256 = 2_u256.pow(240);
-pub const SHIFT_31_U256: u256 = 2_u256.pow(248);
+pub const SHIFT_1B_U256: u256 = 2_u256.pow(8);
+pub const SHIFT_2B_U256: u256 = 2_u256.pow(16);
+pub const SHIFT_3B_U256: u256 = 2_u256.pow(24);
+pub const SHIFT_4B_U256: u256 = 2_u256.pow(32);
+pub const SHIFT_5B_U256: u256 = 2_u256.pow(40);
+pub const SHIFT_6B_U256: u256 = 2_u256.pow(48);
+pub const SHIFT_7B_U256: u256 = 2_u256.pow(56);
+pub const SHIFT_8B_U256: u256 = 2_u256.pow(64);
+pub const SHIFT_9B_U256: u256 = 2_u256.pow(72);
+pub const SHIFT_10B_U256: u256 = 2_u256.pow(80);
+pub const SHIFT_11B_U256: u256 = 2_u256.pow(88);
+pub const SHIFT_12B_U256: u256 = 2_u256.pow(96);
+pub const SHIFT_13B_U256: u256 = 2_u256.pow(104);
+pub const SHIFT_14B_U256: u256 = 2_u256.pow(112);
+pub const SHIFT_15B_U256: u256 = 2_u256.pow(120);
+pub const SHIFT_16B_U256: u256 = 2_u256.pow(128);
+pub const SHIFT_17B_U256: u256 = 2_u256.pow(136);
+pub const SHIFT_18B_U256: u256 = 2_u256.pow(144);
+pub const SHIFT_19B_U256: u256 = 2_u256.pow(152);
+pub const SHIFT_20B_U256: u256 = 2_u256.pow(160);
+pub const SHIFT_21B_U256: u256 = 2_u256.pow(168);
+pub const SHIFT_22B_U256: u256 = 2_u256.pow(176);
+pub const SHIFT_23B_U256: u256 = 2_u256.pow(184);
+pub const SHIFT_24B_U256: u256 = 2_u256.pow(192);
+pub const SHIFT_25B_U256: u256 = 2_u256.pow(200);
+pub const SHIFT_26B_U256: u256 = 2_u256.pow(208);
+pub const SHIFT_27B_U256: u256 = 2_u256.pow(216);
+pub const SHIFT_28B_U256: u256 = 2_u256.pow(224);
+pub const SHIFT_29B_U256: u256 = 2_u256.pow(232);
+pub const SHIFT_30B_U256: u256 = 2_u256.pow(240);
+pub const SHIFT_31B_U256: u256 = 2_u256.pow(248);
 
-pub const MASK_8_U16: u16 = SHIFT_1_U16 - 1;
+pub const MASK_1B_U16: u16 = SHIFT_1B_U16 - 1;
+pub const MASK_2B_U16: u16 = Bounded::MAX;
 
-pub const MASK_8_U32: u32 = SHIFT_1_U32 - 1;
-pub const MASK_16_U32: u32 = SHIFT_2_U32 - 1;
+pub const MASK_1B_U32: u32 = MASK_1B_U16.into();
+pub const MASK_2B_U32: u32 = SHIFT_2B_U32 - 1;
+pub const MASK_3B_U32: u32 = SHIFT_3B_U32 - 1;
+pub const MASK_4B_U32: u32 = Bounded::MAX;
 
-pub const MASK_8_U64: u64 = SHIFT_1_U64 - 1;
-pub const MASK_16_U64: u64 = SHIFT_2_U64 - 1;
-pub const MASK_32_U64: u64 = SHIFT_4_U64 - 1;
+pub const MASK_1B_U64: u64 = MASK_1B_U16.into();
+pub const MASK_2B_U64: u64 = MASK_2B_U32.into();
+pub const MASK_3B_U64: u64 = MASK_3B_U32.into();
+pub const MASK_4B_U64: u64 = MASK_4B_U32.into();
+pub const MASK_5B_U64: u64 = SHIFT_5B_U64 - 1;
+pub const MASK_6B_U64: u64 = SHIFT_6B_U64 - 1;
+pub const MASK_7B_U64: u64 = SHIFT_7B_U64 - 1;
+pub const MASK_8B_U64: u64 = Bounded::MAX;
 
-pub const MASK_8_U128: u128 = SHIFT_1_U128 - 1;
-pub const MASK_16_U128: u128 = SHIFT_2_U128 - 1;
-pub const MASK_32_U128: u128 = SHIFT_4_U128 - 1;
-pub const MASK_64_U128: u128 = SHIFT_8_U128 - 1;
+pub const MASK_1B_U128: u128 = MASK_1B_U16.into();
+pub const MASK_2B_U128: u128 = MASK_2B_U64.into();
+pub const MASK_3B_U128: u128 = MASK_3B_U64.into();
+pub const MASK_4B_U128: u128 = MASK_4B_U64.into();
+pub const MASK_5B_U128: u128 = MASK_5B_U64.into();
+pub const MASK_6B_U128: u128 = MASK_6B_U64.into();
+pub const MASK_7B_U128: u128 = MASK_7B_U64.into();
+pub const MASK_8B_U128: u128 = MASK_8B_U64.into();
+pub const MASK_9B_U128: u128 = SHIFT_9B_U128 - 1;
+pub const MASK_10B_U128: u128 = SHIFT_10B_U128 - 1;
+pub const MASK_11B_U128: u128 = SHIFT_11B_U128 - 1;
+pub const MASK_12B_U128: u128 = SHIFT_12B_U128 - 1;
+pub const MASK_13B_U128: u128 = SHIFT_13B_U128 - 1;
+pub const MASK_14B_U128: u128 = SHIFT_14B_U128 - 1;
+pub const MASK_15B_U128: u128 = SHIFT_15B_U128 - 1;
+pub const MASK_16B_U128: u128 = Bounded::MAX;
 
-pub const MASK_8_FELT252: felt252 = SHIFT_1_FELT252 - 1;
-pub const MASK_16_FELT252: felt252 = SHIFT_2_FELT252 - 1;
-pub const MASK_32_FELT252: felt252 = SHIFT_4_FELT252 - 1;
-pub const MASK_64_FELT252: felt252 = SHIFT_8_FELT252 - 1;
-pub const MASK_128_FELT252: felt252 = SHIFT_16_FELT252 - 1;
+pub const MASK_1B_FELT252: felt252 = MASK_1B_U16.into();
+pub const MASK_2B_FELT252: felt252 = MASK_2B_U64.into();
+pub const MASK_3B_FELT252: felt252 = MASK_3B_U64.into();
+pub const MASK_4B_FELT252: felt252 = MASK_4B_U64.into();
+pub const MASK_5B_FELT252: felt252 = MASK_5B_U128.into();
+pub const MASK_6B_FELT252: felt252 = MASK_6B_U128.into();
+pub const MASK_7B_FELT252: felt252 = MASK_7B_U128.into();
+pub const MASK_8B_FELT252: felt252 = MASK_8B_U128.into();
+pub const MASK_9B_FELT252: felt252 = MASK_9B_U128.into();
+pub const MASK_10B_FELT252: felt252 = MASK_10B_U128.into();
+pub const MASK_11B_FELT252: felt252 = MASK_11B_U128.into();
+pub const MASK_12B_FELT252: felt252 = MASK_12B_U128.into();
+pub const MASK_13B_FELT252: felt252 = MASK_13B_U128.into();
+pub const MASK_14B_FELT252: felt252 = MASK_14B_U128.into();
+pub const MASK_15B_FELT252: felt252 = MASK_15B_U128.into();
+pub const MASK_16B_FELT252: felt252 = MASK_16B_U128.into();
+pub const MASK_17B_FELT252: felt252 = SHIFT_17B_FELT252 - 1;
+pub const MASK_18B_FELT252: felt252 = SHIFT_18B_FELT252 - 1;
+pub const MASK_19B_FELT252: felt252 = SHIFT_19B_FELT252 - 1;
+pub const MASK_20B_FELT252: felt252 = SHIFT_20B_FELT252 - 1;
+pub const MASK_21B_FELT252: felt252 = SHIFT_21B_FELT252 - 1;
+pub const MASK_22B_FELT252: felt252 = SHIFT_22B_FELT252 - 1;
+pub const MASK_23B_FELT252: felt252 = SHIFT_23B_FELT252 - 1;
+pub const MASK_24B_FELT252: felt252 = SHIFT_24B_FELT252 - 1;
+pub const MASK_25B_FELT252: felt252 = SHIFT_25B_FELT252 - 1;
+pub const MASK_26B_FELT252: felt252 = SHIFT_26B_FELT252 - 1;
+pub const MASK_27B_FELT252: felt252 = SHIFT_27B_FELT252 - 1;
+pub const MASK_28B_FELT252: felt252 = SHIFT_28B_FELT252 - 1;
+pub const MASK_29B_FELT252: felt252 = SHIFT_29B_FELT252 - 1;
+pub const MASK_30B_FELT252: felt252 = SHIFT_30B_FELT252 - 1;
+pub const MASK_31B_FELT252: felt252 = SHIFT_31B_FELT252 - 1;
 
-pub const MASK_8_U256: u256 = SHIFT_1_U256 - 1;
-pub const MASK_16_U256: u256 = SHIFT_2_U256 - 1;
-pub const MASK_32_U256: u256 = SHIFT_4_U256 - 1;
-pub const MASK_64_U256: u256 = SHIFT_8_U256 - 1;
-pub const MASK_128_U256: u256 = SHIFT_16_U256 - 1;
+pub const MASK_1B_U256: u256 = MASK_1B_U16.into();
+pub const MASK_2B_U256: u256 = MASK_2B_U64.into();
+pub const MASK_3B_U256: u256 = MASK_3B_U64.into();
+pub const MASK_4B_U256: u256 = MASK_4B_U64.into();
+pub const MASK_5B_U256: u256 = MASK_5B_U128.into();
+pub const MASK_6B_U256: u256 = MASK_6B_U128.into();
+pub const MASK_7B_U256: u256 = MASK_7B_U128.into();
+pub const MASK_8B_U256: u256 = MASK_8B_U128.into();
+pub const MASK_9B_U256: u256 = MASK_9B_U128.into();
+pub const MASK_10B_U256: u256 = MASK_10B_U128.into();
+pub const MASK_11B_U256: u256 = MASK_11B_U128.into();
+pub const MASK_12B_U256: u256 = MASK_12B_U128.into();
+pub const MASK_13B_U256: u256 = MASK_13B_U128.into();
+pub const MASK_14B_U256: u256 = MASK_14B_U128.into();
+pub const MASK_15B_U256: u256 = MASK_15B_U128.into();
+pub const MASK_16B_U256: u256 = MASK_16B_U128.into();
+pub const MASK_17B_U256: u256 = SHIFT_17B_U256 - 1;
+pub const MASK_18B_U256: u256 = SHIFT_18B_U256 - 1;
+pub const MASK_19B_U256: u256 = SHIFT_19B_U256 - 1;
+pub const MASK_20B_U256: u256 = SHIFT_20B_U256 - 1;
+pub const MASK_21B_U256: u256 = SHIFT_21B_U256 - 1;
+pub const MASK_22B_U256: u256 = SHIFT_22B_U256 - 1;
+pub const MASK_23B_U256: u256 = SHIFT_23B_U256 - 1;
+pub const MASK_24B_U256: u256 = SHIFT_24B_U256 - 1;
+pub const MASK_25B_U256: u256 = SHIFT_25B_U256 - 1;
+pub const MASK_26B_U256: u256 = SHIFT_26B_U256 - 1;
+pub const MASK_27B_U256: u256 = SHIFT_27B_U256 - 1;
+pub const MASK_28B_U256: u256 = SHIFT_28B_U256 - 1;
+pub const MASK_29B_U256: u256 = SHIFT_29B_U256 - 1;
+pub const MASK_30B_U256: u256 = SHIFT_30B_U256 - 1;
+pub const MASK_31B_U256: u256 = SHIFT_31B_U256 - 1;
+pub const MASK_32B_U256: u256 = Bounded::MAX;
+
 
 pub trait BytePacking<T, S> {
     fn pack(value: T) -> S;
@@ -418,65 +493,67 @@ pub impl IFixedArray16StorePack<
 }
 
 
-impl U8sPackedU16 = impls::FixedArray2StorePack<u8, u16, SHIFT_1_U16, MASK_8_U16>;
-impl U16sPackedU32 = impls::FixedArray2StorePack<u16, u32, SHIFT_2_U32, MASK_16_U32>;
-impl U32sPackedU64 = impls::FixedArray2StorePack<u32, u64, SHIFT_4_U64, MASK_32_U64>;
-impl U64sPackedU128 = impls::FixedArray2StorePack<u64, u128, SHIFT_8_U128, MASK_64_U128>;
+impl U8sPackedU16 = impls::FixedArray2StorePack<u8, u16, SHIFT_1B_U16, MASK_1B_U16>;
+impl U16sPackedU32 = impls::FixedArray2StorePack<u16, u32, SHIFT_2B_U32, MASK_2B_U32>;
+impl U32sPackedU64 = impls::FixedArray2StorePack<u32, u64, SHIFT_4B_U64, MASK_4B_U64>;
+impl U64sPackedU128 = impls::FixedArray2StorePack<u64, u128, SHIFT_8B_U128, MASK_8B_U128>;
 
 impl U8sPackedU32 =
-    impls::FixedArray4StorePack<u8, u32, SHIFT_1_U32, SHIFT_2_U32, SHIFT_3_U32, MASK_8_U32>;
+    impls::FixedArray4StorePack<u8, u32, SHIFT_1B_U32, SHIFT_2B_U32, SHIFT_3B_U32, MASK_1B_U32>;
 impl U16sPackedU64 =
-    impls::FixedArray4StorePack<u16, u64, SHIFT_2_U64, SHIFT_4_U64, SHIFT_6_U64, MASK_16_U64>;
+    impls::FixedArray4StorePack<u16, u64, SHIFT_2B_U64, SHIFT_4B_U64, SHIFT_6B_U64, MASK_2B_U64>;
 impl U32sPackedU128 =
-    impls::FixedArray4StorePack<u32, u128, SHIFT_4_U128, SHIFT_8_U128, SHIFT_12_U128, MASK_32_U128>;
+    impls::FixedArray4StorePack<
+        u32, u128, SHIFT_4B_U128, SHIFT_8B_U128, SHIFT_12B_U128, MASK_4B_U128,
+    >;
 
 impl U8sPackedU64 =
     impls::FixedArray8StorePack<
         u8,
         u64,
-        SHIFT_1_U64,
-        SHIFT_2_U64,
-        SHIFT_3_U64,
-        SHIFT_4_U64,
-        SHIFT_5_U64,
-        SHIFT_6_U64,
-        SHIFT_7_U64,
-        MASK_8_U64,
+        SHIFT_1B_U64,
+        SHIFT_2B_U64,
+        SHIFT_3B_U64,
+        SHIFT_4B_U64,
+        SHIFT_5B_U64,
+        SHIFT_6B_U64,
+        SHIFT_7B_U64,
+        MASK_1B_U64,
     >;
 impl U16sPackedU128 =
     impls::FixedArray8StorePack<
         u16,
         u128,
-        SHIFT_2_U128,
-        SHIFT_4_U128,
-        SHIFT_6_U128,
-        SHIFT_8_U128,
-        SHIFT_10_U128,
-        SHIFT_12_U128,
-        SHIFT_14_U128,
-        MASK_16_U128,
+        SHIFT_2B_U128,
+        SHIFT_4B_U128,
+        SHIFT_6B_U128,
+        SHIFT_8B_U128,
+        SHIFT_10B_U128,
+        SHIFT_12B_U128,
+        SHIFT_14B_U128,
+        MASK_2B_U128,
     >;
 
 impl U8sPackedU128 =
     impls::FixedArray16StorePack<
         u8,
         u128,
-        SHIFT_1_U128,
-        SHIFT_2_U128,
-        SHIFT_3_U128,
-        SHIFT_4_U128,
-        SHIFT_5_U128,
-        SHIFT_6_U128,
-        SHIFT_7_U128,
-        SHIFT_8_U128,
-        SHIFT_9_U128,
-        SHIFT_10_U128,
-        SHIFT_11_U128,
-        SHIFT_12_U128,
-        SHIFT_13_U128,
-        SHIFT_14_U128,
-        SHIFT_15_U128,
-        MASK_8_U128,
+        SHIFT_1B_U128,
+        SHIFT_2B_U128,
+        SHIFT_3B_U128,
+        SHIFT_4B_U128,
+        SHIFT_5B_U128,
+        SHIFT_6B_U128,
+        SHIFT_7B_U128,
+        SHIFT_8B_U128,
+        SHIFT_9B_U128,
+        SHIFT_10B_U128,
+        SHIFT_11B_U128,
+        SHIFT_12B_U128,
+        SHIFT_13B_U128,
+        SHIFT_14B_U128,
+        SHIFT_15B_U128,
+        MASK_1B_U128,
     >;
 
 impl I8sPackedU16 = IFixedArray2StorePack<i8, u16, I8IntPacking, U8sPackedU16>;
@@ -531,36 +608,36 @@ impl U8sPackedFelt252 of BytePacking<[u8; 31], felt252> {
         ] =
             value;
         (v1.into()
-            + v2.into() * SHIFT_1_FELT252
-            + v3.into() * SHIFT_2_FELT252
-            + v4.into() * SHIFT_3_FELT252
-            + v5.into() * SHIFT_4_FELT252
-            + v6.into() * SHIFT_5_FELT252
-            + v7.into() * SHIFT_6_FELT252
-            + v8.into() * SHIFT_7_FELT252
-            + v9.into() * SHIFT_8_FELT252
-            + v10.into() * SHIFT_9_FELT252
-            + v11.into() * SHIFT_10_FELT252
-            + v12.into() * SHIFT_11_FELT252
-            + v13.into() * SHIFT_12_FELT252
-            + v14.into() * SHIFT_13_FELT252
-            + v15.into() * SHIFT_14_FELT252
-            + v16.into() * SHIFT_15_FELT252
-            + v17.into() * SHIFT_16_FELT252
-            + v18.into() * SHIFT_17_FELT252
-            + v19.into() * SHIFT_18_FELT252
-            + v20.into() * SHIFT_19_FELT252
-            + v21.into() * SHIFT_20_FELT252
-            + v22.into() * SHIFT_21_FELT252
-            + v23.into() * SHIFT_22_FELT252
-            + v24.into() * SHIFT_23_FELT252
-            + v25.into() * SHIFT_24_FELT252
-            + v26.into() * SHIFT_25_FELT252
-            + v27.into() * SHIFT_26_FELT252
-            + v28.into() * SHIFT_27_FELT252
-            + v29.into() * SHIFT_28_FELT252
-            + v30.into() * SHIFT_29_FELT252
-            + v31.into() * SHIFT_30_FELT252)
+            + v2.into() * SHIFT_1B_FELT252
+            + v3.into() * SHIFT_2B_FELT252
+            + v4.into() * SHIFT_3B_FELT252
+            + v5.into() * SHIFT_4B_FELT252
+            + v6.into() * SHIFT_5B_FELT252
+            + v7.into() * SHIFT_6B_FELT252
+            + v8.into() * SHIFT_7B_FELT252
+            + v9.into() * SHIFT_8B_FELT252
+            + v10.into() * SHIFT_9B_FELT252
+            + v11.into() * SHIFT_10B_FELT252
+            + v12.into() * SHIFT_11B_FELT252
+            + v13.into() * SHIFT_12B_FELT252
+            + v14.into() * SHIFT_13B_FELT252
+            + v15.into() * SHIFT_14B_FELT252
+            + v16.into() * SHIFT_15B_FELT252
+            + v17.into() * SHIFT_16B_FELT252
+            + v18.into() * SHIFT_17B_FELT252
+            + v19.into() * SHIFT_18B_FELT252
+            + v20.into() * SHIFT_19B_FELT252
+            + v21.into() * SHIFT_20B_FELT252
+            + v22.into() * SHIFT_21B_FELT252
+            + v23.into() * SHIFT_22B_FELT252
+            + v24.into() * SHIFT_23B_FELT252
+            + v25.into() * SHIFT_24B_FELT252
+            + v26.into() * SHIFT_25B_FELT252
+            + v27.into() * SHIFT_26B_FELT252
+            + v28.into() * SHIFT_27B_FELT252
+            + v29.into() * SHIFT_28B_FELT252
+            + v30.into() * SHIFT_29B_FELT252
+            + v31.into() * SHIFT_30B_FELT252)
     }
 
     fn unpack(value: felt252) -> [u8; 31] {
@@ -569,21 +646,21 @@ impl U8sPackedFelt252 of BytePacking<[u8; 31], felt252> {
             U8sPackedU128::unpack(
             low,
         );
-        let v17: u8 = (high & MASK_8_U128).try_into().unwrap();
-        let v18: u8 = ((high / SHIFT_1_U128) & MASK_8_U128).try_into().unwrap();
-        let v19: u8 = ((high / SHIFT_2_U128) & MASK_8_U128).try_into().unwrap();
-        let v20: u8 = ((high / SHIFT_3_U128) & MASK_8_U128).try_into().unwrap();
-        let v21: u8 = ((high / SHIFT_4_U128) & MASK_8_U128).try_into().unwrap();
-        let v22: u8 = ((high / SHIFT_5_U128) & MASK_8_U128).try_into().unwrap();
-        let v23: u8 = ((high / SHIFT_6_U128) & MASK_8_U128).try_into().unwrap();
-        let v24: u8 = ((high / SHIFT_7_U128) & MASK_8_U128).try_into().unwrap();
-        let v25: u8 = ((high / SHIFT_8_U128) & MASK_8_U128).try_into().unwrap();
-        let v26: u8 = ((high / SHIFT_9_U128) & MASK_8_U128).try_into().unwrap();
-        let v27: u8 = ((high / SHIFT_10_U128) & MASK_8_U128).try_into().unwrap();
-        let v28: u8 = ((high / SHIFT_11_U128) & MASK_8_U128).try_into().unwrap();
-        let v29: u8 = ((high / SHIFT_12_U128) & MASK_8_U128).try_into().unwrap();
-        let v30: u8 = ((high / SHIFT_13_U128) & MASK_8_U128).try_into().unwrap();
-        let v31: u8 = ((high / SHIFT_14_U128) & MASK_8_U128).try_into().unwrap();
+        let v17: u8 = (high & MASK_1B_U128).try_into().unwrap();
+        let v18: u8 = ((high / SHIFT_1B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v19: u8 = ((high / SHIFT_2B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v20: u8 = ((high / SHIFT_3B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v21: u8 = ((high / SHIFT_4B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v22: u8 = ((high / SHIFT_5B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v23: u8 = ((high / SHIFT_6B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v24: u8 = ((high / SHIFT_7B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v25: u8 = ((high / SHIFT_8B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v26: u8 = ((high / SHIFT_9B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v27: u8 = ((high / SHIFT_10B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v28: u8 = ((high / SHIFT_11B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v29: u8 = ((high / SHIFT_12B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v30: u8 = ((high / SHIFT_13B_U128) & MASK_1B_U128).try_into().unwrap();
+        let v31: u8 = ((high / SHIFT_14B_U128) & MASK_1B_U128).try_into().unwrap();
         [
             v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19,
             v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31,
@@ -595,32 +672,32 @@ impl U16sPackedFelt252 of BytePacking<[u16; 15], felt252> {
     fn pack(value: [u16; 15]) -> felt252 {
         let [v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15] = value;
         (v1.into()
-            + v2.into() * SHIFT_2_FELT252
-            + v3.into() * SHIFT_4_FELT252
-            + v4.into() * SHIFT_6_FELT252
-            + v5.into() * SHIFT_8_FELT252
-            + v6.into() * SHIFT_10_FELT252
-            + v7.into() * SHIFT_12_FELT252
-            + v8.into() * SHIFT_14_FELT252
-            + v9.into() * SHIFT_16_FELT252
-            + v10.into() * SHIFT_18_FELT252
-            + v11.into() * SHIFT_20_FELT252
-            + v12.into() * SHIFT_22_FELT252
-            + v13.into() * SHIFT_24_FELT252
-            + v14.into() * SHIFT_26_FELT252
-            + v15.into() * SHIFT_28_FELT252)
+            + v2.into() * SHIFT_2B_FELT252
+            + v3.into() * SHIFT_4B_FELT252
+            + v4.into() * SHIFT_6B_FELT252
+            + v5.into() * SHIFT_8B_FELT252
+            + v6.into() * SHIFT_10B_FELT252
+            + v7.into() * SHIFT_12B_FELT252
+            + v8.into() * SHIFT_14B_FELT252
+            + v9.into() * SHIFT_16B_FELT252
+            + v10.into() * SHIFT_18B_FELT252
+            + v11.into() * SHIFT_20B_FELT252
+            + v12.into() * SHIFT_22B_FELT252
+            + v13.into() * SHIFT_24B_FELT252
+            + v14.into() * SHIFT_26B_FELT252
+            + v15.into() * SHIFT_28B_FELT252)
     }
 
     fn unpack(value: felt252) -> [u16; 15] {
         let u256 { low, high } = value.into();
         let [v1, v2, v3, v4, v5, v6, v7, v8] = U16sPackedU128::unpack(low);
-        let v9: u16 = (high & MASK_16_U128).try_into().unwrap();
-        let v10: u16 = ((high / SHIFT_2_U128) & MASK_16_U128).try_into().unwrap();
-        let v11: u16 = ((high / SHIFT_4_U128) & MASK_16_U128).try_into().unwrap();
-        let v12: u16 = ((high / SHIFT_6_U128) & MASK_16_U128).try_into().unwrap();
-        let v13: u16 = ((high / SHIFT_8_U128) & MASK_16_U128).try_into().unwrap();
-        let v14: u16 = ((high / SHIFT_10_U128) & MASK_16_U128).try_into().unwrap();
-        let v15: u16 = ((high / SHIFT_12_U128) & MASK_16_U128).try_into().unwrap();
+        let v9: u16 = (high & MASK_2B_U128).try_into().unwrap();
+        let v10: u16 = ((high / SHIFT_2B_U128) & MASK_2B_U128).try_into().unwrap();
+        let v11: u16 = ((high / SHIFT_4B_U128) & MASK_2B_U128).try_into().unwrap();
+        let v12: u16 = ((high / SHIFT_6B_U128) & MASK_2B_U128).try_into().unwrap();
+        let v13: u16 = ((high / SHIFT_8B_U128) & MASK_2B_U128).try_into().unwrap();
+        let v14: u16 = ((high / SHIFT_10B_U128) & MASK_2B_U128).try_into().unwrap();
+        let v15: u16 = ((high / SHIFT_12B_U128) & MASK_2B_U128).try_into().unwrap();
         [v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15]
     }
 }
@@ -629,20 +706,20 @@ impl U32sPackedFelt252 of BytePacking<[u32; 7], felt252> {
     fn pack(value: [u32; 7]) -> felt252 {
         let [v1, v2, v3, v4, v5, v6, v7] = value;
         (v1.into()
-            + v2.into() * SHIFT_4_FELT252
-            + v3.into() * SHIFT_8_FELT252
-            + v4.into() * SHIFT_12_FELT252
-            + v5.into() * SHIFT_16_FELT252
-            + v6.into() * SHIFT_20_FELT252
-            + v7.into() * SHIFT_24_FELT252)
+            + v2.into() * SHIFT_4B_FELT252
+            + v3.into() * SHIFT_8B_FELT252
+            + v4.into() * SHIFT_12B_FELT252
+            + v5.into() * SHIFT_16B_FELT252
+            + v6.into() * SHIFT_20B_FELT252
+            + v7.into() * SHIFT_24B_FELT252)
     }
 
     fn unpack(value: felt252) -> [u32; 7] {
         let u256 { low, high } = value.into();
         let [v1, v2, v3, v4] = U32sPackedU128::unpack(low);
-        let v5: u32 = (high & MASK_32_U128).try_into().unwrap();
-        let v6: u32 = ((high / SHIFT_4_U128) & MASK_32_U128).try_into().unwrap();
-        let v7: u32 = ((high / SHIFT_8_U128) & MASK_32_U128).try_into().unwrap();
+        let v5: u32 = (high & MASK_4B_U128).try_into().unwrap();
+        let v6: u32 = ((high / SHIFT_4B_U128) & MASK_4B_U128).try_into().unwrap();
+        let v7: u32 = ((high / SHIFT_8B_U128) & MASK_4B_U128).try_into().unwrap();
         [v1, v2, v3, v4, v5, v6, v7]
     }
 }
@@ -650,13 +727,13 @@ impl U32sPackedFelt252 of BytePacking<[u32; 7], felt252> {
 impl U64sPackedFelt252 of BytePacking<[u64; 3], felt252> {
     fn pack(value: [u64; 3]) -> felt252 {
         let [v1, v2, v3] = value;
-        (v1.into() + v2.into() * SHIFT_8_FELT252 + v3.into() * SHIFT_16_FELT252)
+        (v1.into() + v2.into() * SHIFT_8B_FELT252 + v3.into() * SHIFT_16B_FELT252)
     }
 
     fn unpack(value: felt252) -> [u64; 3] {
         let u256 { low, high } = value.into();
         let [v1, v2] = U64sPackedU128::unpack(low);
-        let v3: u64 = (high & MASK_64_U128).try_into().unwrap();
+        let v3: u64 = (high & MASK_8B_U128).try_into().unwrap();
         [v1, v2, v3]
     }
 }
