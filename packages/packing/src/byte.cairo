@@ -4,6 +4,7 @@ use crate::int::{
     I128IntPacking, I16IntPacking, I32IntPacking, I64IntPacking, I8IntPacking, IntPacking,
 };
 
+pub const SHIFT_0B_FELT252: felt252 = 1;
 pub const SHIFT_1B_FELT252: felt252 = 2_felt252.pow(8);
 pub const SHIFT_2B_FELT252: felt252 = 2_felt252.pow(16);
 pub const SHIFT_3B_FELT252: felt252 = 2_felt252.pow(24);
@@ -37,12 +38,15 @@ pub const SHIFT_30B_FELT252: felt252 = 2_felt252.pow(240);
 pub const SHIFT_31B_FELT252: felt252 = 2_felt252.pow(248);
 
 
+pub const SHIFT_0B_U16: u16 = 1;
 pub const SHIFT_1B_U16: u16 = 2_u16.pow(8);
 
+pub const SHIFT_0B_U32: u32 = 1;
 pub const SHIFT_1B_U32: u32 = 2_u32.pow(8);
 pub const SHIFT_2B_U32: u32 = 2_u32.pow(16);
 pub const SHIFT_3B_U32: u32 = 2_u32.pow(24);
 
+pub const SHIFT_0B_U64: u64 = 1;
 pub const SHIFT_1B_U64: u64 = 2_u64.pow(8);
 pub const SHIFT_2B_U64: u64 = 2_u64.pow(16);
 pub const SHIFT_3B_U64: u64 = 2_u64.pow(24);
@@ -51,6 +55,7 @@ pub const SHIFT_5B_U64: u64 = 2_u64.pow(40);
 pub const SHIFT_6B_U64: u64 = 2_u64.pow(48);
 pub const SHIFT_7B_U64: u64 = 2_u64.pow(56);
 
+pub const SHIFT_0B_U128: u128 = 1;
 pub const SHIFT_1B_U128: u128 = 2_u128.pow(8);
 pub const SHIFT_2B_U128: u128 = 2_u128.pow(16);
 pub const SHIFT_3B_U128: u128 = 2_u128.pow(24);
@@ -67,6 +72,7 @@ pub const SHIFT_13B_U128: u128 = 2_u128.pow(104);
 pub const SHIFT_14B_U128: u128 = 2_u128.pow(112);
 pub const SHIFT_15B_U128: u128 = 2_u128.pow(120);
 
+pub const SHIFT_0B_U256: u256 = 1_u256;
 pub const SHIFT_1B_U256: u256 = 2_u256.pow(8);
 pub const SHIFT_2B_U256: u256 = 2_u256.pow(16);
 pub const SHIFT_3B_U256: u256 = 2_u256.pow(24);
@@ -208,7 +214,11 @@ pub trait MaskDowncast<T, S> {
     fn cast(value: T) -> S;
 }
 
-pub trait UnpackBytes<T, S, +Div<T>, +MaskDowncast<T, S>> {
+pub trait UnpackBytes<T, S> {
+    fn unpack<const SHIFT: T>(value: T) -> S;
+}
+
+impl UnpackBytesImpl<T, S, +Div<T>, +MaskDowncast<T, S>> of UnpackBytes<T, S> {
     fn unpack<const SHIFT: T>(value: T) -> S {
         MaskDowncast::cast(value / SHIFT)
     }
