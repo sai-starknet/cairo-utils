@@ -1,4 +1,5 @@
 use core::num::traits::{Bounded, Pow};
+use core::traits::BitAnd;
 use crate::int::{
     I128IntPacking, I16IntPacking, I32IntPacking, I64IntPacking, I8IntPacking, IntPacking,
 };
@@ -202,6 +203,25 @@ pub trait BytePacking<T, S> {
     fn pack(value: T) -> S;
     fn unpack(value: S) -> T;
 }
+
+pub trait MaskDowncast<T, S> {
+    fn cast(value: T) -> S;
+}
+
+pub trait UnpackBytes<T, S, +Div<T>, +MaskDowncast<T, S>> {
+    fn unpack<const SHIFT: T>(value: T) -> S {
+        MaskDowncast::cast(value / SHIFT)
+    }
+}
+
+impl MaskDowncastImpl<
+    T, S, +Drop<T>, +Bounded<S>, +BitAnd<T>, +Into<S, T>, +TryInto<T, S>,
+> of MaskDowncast<T, S> {
+    fn cast(value: T) -> S {
+        (value & Bounded::<S>::MAX.into()).try_into().unwrap()
+    }
+}
+
 
 mod impls {
     use core::traits::BitAnd;
