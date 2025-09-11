@@ -218,10 +218,8 @@ pub trait UnpackBytes<T, S> {
     fn unpack<const SHIFT: T>(value: T) -> S;
 }
 
-impl UnpackBytesImpl<T, S, +Div<T>, +MaskDowncast<T, S>> of UnpackBytes<T, S> {
-    fn unpack<const SHIFT: T>(value: T) -> S {
-        MaskDowncast::cast(value / SHIFT)
-    }
+pub trait ShiftCast<T, S> {
+    fn cast<const SHIFT: S>(value: T) -> S;
 }
 
 impl MaskDowncastImpl<
@@ -229,6 +227,18 @@ impl MaskDowncastImpl<
 > of MaskDowncast<T, S> {
     fn cast(value: T) -> S {
         (value & Bounded::<S>::MAX.into()).try_into().unwrap()
+    }
+}
+
+impl UnpackBytesImpl<T, S, +Div<T>, +MaskDowncast<T, S>> of UnpackBytes<T, S> {
+    fn unpack<const SHIFT: T>(value: T) -> S {
+        MaskDowncast::cast(value / SHIFT)
+    }
+}
+
+impl ShiftCastImpl<T, S, +Mul<S>, +Into<T, S>> of ShiftCast<T, S> {
+    fn cast<const SHIFT: S>(value: T) -> S {
+        value.into() * SHIFT
     }
 }
 
