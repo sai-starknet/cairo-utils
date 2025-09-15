@@ -1,16 +1,10 @@
-use core::num::traits::Pow;
+use crate::neg_bits::*;
 
 pub trait IntPacking<T> {
     type Packed;
     fn pack(self: T) -> Self::Packed;
     fn unpack(value: Self::Packed) -> T;
 }
-
-const I8_NEG_BIT: u8 = 0x80;
-const I16_NEG_BIT: u16 = 0x8000;
-const I32_NEG_BIT: u32 = 2_u32.pow(31);
-const I64_NEG_BIT: u64 = 2_u64.pow(63);
-const I128_NEG_BIT: u128 = 2_u128.pow(127);
 
 mod implementation {
     use core::num::traits::{Bounded, Zero};
