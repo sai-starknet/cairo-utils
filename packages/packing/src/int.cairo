@@ -3,6 +3,9 @@ use crate::neg_bits::*;
 pub trait IntPacking<T> {
     type Packed;
     fn pack(self: T) -> Self::Packed;
+    fn pack_into<S, +Into<Self::Packed, S>>(self: T) -> S {
+        Self::pack(self).into()
+    }
     fn unpack(value: Self::Packed) -> T;
 }
 

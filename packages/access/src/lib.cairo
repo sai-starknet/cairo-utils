@@ -164,7 +164,7 @@ pub mod access_component {
         fn assert_is_owner(
             self: @TState, owner: ContractAddress,
         ) {
-            assert!(Self::is_owner(self, owner), "User is not an owner");
+            assert!(Self::is_owner(self, owner), "{:?} is not an owner", owner);
         }
         fn caller_is_owner(self: @TState) -> bool {
             Self::is_owner(self, get_caller_address())
@@ -172,7 +172,7 @@ pub mod access_component {
         fn assert_caller_is_owner(
             self: @TState,
         ) {
-            assert!(Self::caller_is_owner(self), "Caller is not an owner");
+            Self::assert_is_owner(self, get_caller_address());
         }
 
         fn is_writer(self: @TState, writer: ContractAddress) -> bool;
@@ -190,7 +190,7 @@ pub mod access_component {
         fn assert_is_writer(
             self: @TState, writer: ContractAddress,
         ) {
-            assert!(Self::is_writer(self, writer), "User is not a writer");
+            assert!(Self::is_writer(self, writer), "{:?} is not a writer", writer);
         }
         fn caller_is_writer(self: @TState) -> bool {
             Self::is_writer(self, get_caller_address())
@@ -198,7 +198,7 @@ pub mod access_component {
         fn assert_caller_is_writer(
             self: @TState,
         ) {
-            assert!(Self::caller_is_writer(self), "Caller is not a writer");
+            Self::assert_is_writer(self, get_caller_address());
         }
     }
 

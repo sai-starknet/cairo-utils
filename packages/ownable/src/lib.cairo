@@ -103,7 +103,7 @@ pub mod ownable_component {
         fn assert_is_owner(
             self: @TState, owner: ContractAddress,
         ) {
-            assert!(Self::is_owner(self, owner), "User is not an owner");
+            assert!(Self::is_owner(self, owner), "{:?} is not an owner", owner);
         }
         fn caller_is_owner(self: @TState) -> bool {
             Self::is_owner(self, get_caller_address())
@@ -111,7 +111,7 @@ pub mod ownable_component {
         fn assert_caller_is_owner(
             self: @TState,
         ) {
-            assert!(Self::caller_is_owner(self), "Caller is not an owner");
+            Self::assert_is_owner(self, get_caller_address());
         }
     }
 
