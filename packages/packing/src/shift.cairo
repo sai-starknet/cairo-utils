@@ -1,5 +1,5 @@
 use crate::shifts::*;
-
+use crate::{IntPacking, MaskDowncast};
 pub trait GetShift<U> {
     fn get_shift(bytes: u8) -> U;
 }
@@ -143,5 +143,80 @@ impl Felt252GetShift of GetShift<felt252> {
             30 => SHIFT_30B_FELT252,
             _ => panic!("Shift out of range for felt252"),
         }
+    }
+}
+
+
+pub trait ShiftCast<T, S, U, +GetShift<S>, +Drop<S>, +Drop<T>> {
+    fn cast(value: T, shift: U) -> S;
+    fn unpack(value: S, shift: U) -> T;
+
+    fn const_cast<const SHIFT: U>(value: T) -> S {
+        Self::cast(value, SHIFT)
+    }
+    fn const_unpack<const SHIFT: U>(value: S) -> T {
+        Self::unpack(value, SHIFT)
+    }
+}
+
+pub trait BShiftCast<T, S> {
+    fn cast(value: T, bytes: u8) -> S;
+    fn unpack(value: S, bytes: u8) -> T;
+}
+
+
+impl ShiftCastImpl<
+    T,
+    S,
+    U,
+    +Drop<T>,
+    +Mul<S>,
+    +Drop<S>,
+    +Div<S>,
+    +Drop<U>,
+    +Into<T, S>,
+    +MaskDowncast<S, T>,
+    +GetShift<S>,
+    +Into<U, S>,
+> of ShiftCast<T, S, U> {
+    fn cast(value: T, shift: U) -> S {
+        value.into() * shift.into()
+    }
+    fn unpack(value: S, shift: U) -> T {
+        MaskDowncast::cast(value / shift.into())
+    }
+}
+
+impl ShiftCastSigned<
+    T,
+    S,
+    U,
+    +IntPacking<T>,
+    +Drop<T>,
+    +Drop<S>,
+    +Drop<U>,
+    +ShiftCast<IntPacking::<T>::Packed, S, U>,
+    +Drop<IntPacking::<T>::Packed>,
+    +GetShift<S>,
+> of ShiftCast<T, S, U> {
+    fn cast(value: T, shift: U) -> S {
+        ShiftCast::cast(IntPacking::pack(value), shift)
+    }
+    fn unpack(value: S, shift: U) -> T {
+        IntPacking::unpack(ShiftCast::<IntPacking::<T>::Packed>::unpack(value, shift))
+    }
+}
+
+
+impl BShiftCastImpl<
+    T, S, +Drop<T>, +Drop<S>, +GetShift<S>, +ShiftCast<T, S, S>,
+> of BShiftCast<T, S> {
+    fn cast(value: T, bytes: u8) -> S {
+        let shift = GetShift::<S>::get_shift(bytes);
+        ShiftCast::cast(value, shift)
+    }
+    fn unpack(value: S, bytes: u8) -> T {
+        let shift = GetShift::<S>::get_shift(bytes);
+        ShiftCast::unpack(value, shift)
     }
 }

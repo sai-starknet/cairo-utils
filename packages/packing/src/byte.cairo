@@ -17,11 +17,6 @@ pub trait MaskDowncast<T, S> {
 }
 
 
-pub trait ShiftCast<T, S, U> {
-    fn cast<const SHIFT: U>(value: T) -> S;
-    fn unpack<const SHIFT: U>(value: S) -> T;
-}
-
 impl MaskDowncastImpl<
     T, S, +Drop<T>, +Bounded<S>, +BitAnd<T>, +Into<S, T>, +TryInto<T, S>,
 > of MaskDowncast<T, S> {
@@ -38,16 +33,6 @@ impl MaskDowncastFelt252Impl<
     }
 }
 
-impl ShiftCastImpl<
-    T, S, U, +Mul<S>, +Drop<S>, +Div<S>, +Into<U, S>, +Into<T, S>, +MaskDowncast<S, T>,
-> of ShiftCast<T, S, U> {
-    fn cast<const SHIFT: U>(value: T) -> S {
-        value.into() * SHIFT.into()
-    }
-    fn unpack<const SHIFT: U>(value: S) -> T {
-        MaskDowncast::cast(value / SHIFT.into())
-    }
-}
 
 impl MaskDowncastSigned<
     T, S, +IntPacking<S>, +MaskDowncast<T, IntPacking::<S>::Packed>,
@@ -56,18 +41,6 @@ impl MaskDowncastSigned<
         IntPacking::unpack(MaskDowncast::<T, IntPacking::<S>::Packed>::cast(value))
     }
 }
-
-impl ShiftCastSigned<
-    T, S, U, +IntPacking<T>, +ShiftCast<IntPacking::<T>::Packed, S, U>,
-> of ShiftCast<T, S, U> {
-    fn cast<const SHIFT: U>(value: T) -> S {
-        ShiftCast::cast::<SHIFT>(IntPacking::pack(value))
-    }
-    fn unpack<const SHIFT: U>(value: S) -> T {
-        IntPacking::unpack(ShiftCast::<IntPacking::<T>::Packed>::unpack::<SHIFT>(value))
-    }
-}
-
 
 mod impls {
     use core::traits::BitAnd;
