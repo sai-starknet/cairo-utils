@@ -187,6 +187,24 @@ impl ShiftCastImpl<
     }
 }
 
+impl ShiftCastFelt252<
+    T,
+    U,
+    +Drop<T>,
+    +Drop<U>,
+    +Into<T, felt252>,
+    +Into<U, felt252>,
+    +MaskDowncast<u256, T>,
+    +Into<U, u256>,
+> of ShiftCast<T, felt252, U> {
+    fn cast(value: T, shift: U) -> felt252 {
+        value.into() * shift.into()
+    }
+    fn unpack(value: felt252, shift: U) -> T {
+        MaskDowncast::cast(Into::<_, u256>::into(value) / shift.into())
+    }
+}
+
 impl ShiftCastSigned<
     T,
     S,
